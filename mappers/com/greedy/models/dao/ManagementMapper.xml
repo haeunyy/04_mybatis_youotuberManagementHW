@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.greedy.models.dao.ManagementMapper">
+
+<resultMap type="com.greedy.models.dto.YoutuberDTO" id="ResultMap">
+	<id property="youtuberCode" column="YOUTUBER_CODE"/>
+	<result property="youtuberName" column="YOUTUBER_USERNAME"/>
+	<result property="youtuberNum" column="YOUTUBER_NUMBER"/>
+	<result property="youtuberUrl" column="YOUTUBER_URL"/>
+	<result property="gradeCode" column="GRADE_CODE"/>
+	<result property="managerCode" column="MANAGER_CODE"/>
+	<result property="dealYN" column="DEAL_YN"/>
+</resultMap>
+
+<resultMap type="com.greedy.models.dto.YoutuberDTO" id="ManagerResultMap">
+	<id property="managerCode" column="MANGER_CODE"/>
+	<result property="managerName" column="MANGER_NAME"/>
+	<result property="managerNum" column="MANGER_NUM"/>
+</resultMap>
+
+  <select id="selectAllList" resultMap="ResultMap">
+    SELECT
+    		YOUTUBER_CODE
+			,YOUTUBER_USERNAME
+			,YOUTUBER_NUMBER
+			,YOUTUBER_URL
+			,GRADE_CODE
+			,MANAGER_CODE
+      FROM TB_YOUTUBER
+      WHERE DEAL_YN = 'Y'
+      ORDER BY YOUTUBER_CODE 
+  </select>
+
+   <select id="selectByName" parameterType="string" resultMap="ResultMap">
+    SELECT
+    		MANAGER_CODE
+			,MANAGER_NAME
+			,MANAGER_NUMBER
+      FROM TB_YOUTUBER
+      WHERE DEAL_YN = 'Y'
+      AND YOUTUBER_USERNAME = #{ name }
+      ORDER BY YOUTUBER_CODE 
+ </select>
+ 
+ <select id="selectManagerList" parameterType="hashmap" resultMap="ManagerResultMap">
+	 SELECT MANAGER_CODE, MANAGER_NAME, MANAGER_NUMBER
+      FROM TB_MANAGER
+	  JOIN TB_YOUTUBER USING(MANAGER_CODE)
+      <trim prefix="WHERE" prefixOverrides="AND | OR">
+		  <if test="MANAGER_NAME != null">
+		  MENU_NAME LIKE '%' || #{managerValue} || '%'
+	 	  </if>
+	 	  <if test="youtuberValue != null">
+	 	  YOUTUBER_NAME = #{youtuberValue}
+	 	  </if> 
+	  </trim>
+  </select>
+  
+</mapper>
