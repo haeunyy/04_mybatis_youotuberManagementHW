@@ -54,6 +54,42 @@ public class MenuController {
 			resultView.printErrorMessage("selectManager");
 		}
 	}
+
+	public void registYoutuber(Map<String, String> parameter) {
+		
+		YoutuberDTO ytb = new YoutuberDTO();
+		ytb.setYoutuberName(parameter.get("name"));
+		ytb.setYoutuberNum(parameter.get("num"));
+		ytb.setYoutuberUrl(parameter.get("url"));
+		ytb.setGradeCode(Integer.parseInt(parameter.get("gradeCode")));
+		ytb.setManagerCode(Integer.parseInt(parameter.get("managerCode")));
+		
+		if(managementService.registYoutuber(ytb)) {
+			resultView.printSuccessMessage("insert");
+		} else {
+			resultView.printErrorMessage("insert");
+		}
+		
+	}
+
+	public void modifyYoutuber(Map<String, String> parameter) {
+		
+		YoutuberDTO ytb = new YoutuberDTO();
+		ytb.setYoutuberCode(Integer.parseInt(parameter.get("code")));
+		ytb.setYoutuberName(parameter.get("name"));
+		ytb.setGradeCode(Integer.parseInt(parameter.get("gradeCode")));
+		ytb.setYoutuberNum(parameter.get("num"));
+		
+		if(managementService.registYoutuber(ytb)) {
+			resultView.printSuccessMessage("update");
+		} else {
+			resultView.printErrorMessage("update");
+		}
+	}
+	
+	
+	
+	
 	
 	/*
 	 * public void selectManagerList(Map<String, Object> criteria) {

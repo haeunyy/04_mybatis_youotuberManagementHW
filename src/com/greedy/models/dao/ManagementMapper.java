@@ -12,7 +12,11 @@ public interface ManagementMapper {
 
 	YoutuberDTO selectByName(String name);
 
-	List<ManagerDTO> selectManagerList(Map<String, Object> manager);
+	List<ManagerDTO> selectManagerList(String parameter);
+
+	int modifyYoutuber(YoutuberDTO ytb);
+
+	int registYoutuber(YoutuberDTO ytb);
 
 	
 

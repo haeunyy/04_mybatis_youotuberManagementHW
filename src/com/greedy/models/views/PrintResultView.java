@@ -20,7 +20,9 @@ public class PrintResultView {
 		case "selectList" : errorMessage = "유튜버 목록 조회에 실패하였습니다. "; break;
 		case "selectByName" : errorMessage = "유튜버 조회에 실패하였습니다. \n계정 이름을 다시 확인해주세요." ; break;
 		case "selectManager": errorMessage = " 매니저 목록 조회에 실패하였습니다 "; break;
-		case "  ": break;
+		case "insert": errorMessage = "유튜버 등록에 실패하였습니다 "; break;
+		case "update": errorMessage = "유튜버 수정에 실패하였습니다 "; break;
+		case "delete": errorMessage = "유튜버 삭제에 실패하였습니다 "; break;
 		default : break;
 		}
 		System.out.println(errorMessage);
@@ -33,6 +35,17 @@ public class PrintResultView {
 	  public void printManagerList (ManagerDTO manager) {
 		  System.out.println(manager); 
 		  }
+
+	public void printSuccessMessage(String successCode) {
+
+		String successMessage = "";
+		switch (successCode) {
+		case "insert" : successMessage = "유튜버 등록에 성공하였습니다. "; break;
+		case "update" : successMessage = "유튜버 수정에 성공하였습니다. "; break;
+		case "delete" : successMessage = "유튜버 삭제에 성공하였습니다. "; break;
+		}
+		System.out.println(successMessage);
+	}
 
 
 

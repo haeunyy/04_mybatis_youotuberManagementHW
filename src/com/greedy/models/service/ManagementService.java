@@ -1,6 +1,7 @@
 package com.greedy.models.service;
 
 import static com.greedy.common.YoutuberTemplate.getSqlSession;
+
 import java.util.List;
 import java.util.Map;
 
@@ -49,23 +50,46 @@ public class ManagementService {
 	 * }
 	 */
 
-	public ManagerDTO selectManagerList(String string) {
+	public ManagerDTO selectManagerList(String parameter) {
 		SqlSession sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(ManagementMapper.class);
-		PrintResultView printResultView = null;
 		
-		List<ManagerDTO> managerList = mapper.selectManagerList(managerCriteria);
-
-		if (managerList != null && !managerList.isEmpty()) {
-			for (ManagerDTO menu : managerList) {
-				System.out.println(menu);
-			}
-		} else {
-			new PrintResultView();
-			printResultView.printErrorMessage("selectByName");
-		}
-
+		ManagerDTO manager = (ManagerDTO) mapper.selectManagerList(parameter);
 		sqlSession.close();
+		return manager;
+	}
+
+	public boolean modifyYoutuber(YoutuberDTO ytb) {
+		SqlSession sqlSession = getSqlSession();
+		mapper = sqlSession.getMapper(ManagementMapper.class);
+		
+		int result = mapper.modifyYoutuber(ytb);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+
+		return result > 0 ? true : false ;
+	}
+
+	public boolean registYoutuber(YoutuberDTO ytb) {
+		
+		SqlSession sqlSession = getSqlSession();
+		mapper = sqlSession.getMapper(ManagementMapper.class);
+		
+		int result = mapper.registYoutuber(ytb);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+
+		return result > 0 ? true : false ;
 	}
 
 

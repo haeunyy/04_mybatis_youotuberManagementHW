@@ -7,15 +7,15 @@
 
 <resultMap type="com.greedy.models.dto.YoutuberDTO" id="ResultMap">
 	<id property="youtuberCode" column="YOUTUBER_CODE"/>
-	<result property="youtuberName" column="YOUTUBER_USERNAME"/>
-	<result property="youtuberNum" column="YOUTUBER_NUMBER"/>
+	<result property="youtuberName" column="YOUTUBER_NAME"/>
+	<result property="youtuberNum" column="YOUTUBER_NUM"/>
 	<result property="youtuberUrl" column="YOUTUBER_URL"/>
 	<result property="gradeCode" column="GRADE_CODE"/>
 	<result property="managerCode" column="MANAGER_CODE"/>
 	<result property="dealYN" column="DEAL_YN"/>
 </resultMap>
 
-<resultMap type="com.greedy.models.dto.YoutuberDTO" id="ManagerResultMap">
+<resultMap type="com.greedy.models.dto.ManagerDTO" id="ManagerResultMap2">
 	<id property="managerCode" column="MANGER_CODE"/>
 	<result property="managerName" column="MANGER_NAME"/>
 	<result property="managerNum" column="MANGER_NUM"/>
@@ -45,7 +45,15 @@
       ORDER BY YOUTUBER_CODE 
  </select>
  
- <select id="selectManagerList" parameterType="hashmap" resultMap="ManagerResultMap">
+ <!-- <resultMap type="com.greedy.models.dto.ManagerAndYoutuberDTO" id="ManagerResultMap">
+ 	<id property="managerCode" column="MANGER_CODE"/>
+	<result property="managerName" column="MANGER_NAME"/>
+	<result property="managerNum" column="MANGER_NUM"/>
+		<association property="youtuber" javaType="com.greedy.common.YoutuberDTO">
+			<result property="youtuberName" column="YOUTUBER_USERNAME"/>
+		</association>
+ </resultMap> -->
+<!--  <select id="selectManagerList" parameterType="hashmap" resultMap="ManagerResultMap">
 	 SELECT MANAGER_CODE, MANAGER_NAME, MANAGER_NUMBER
       FROM TB_MANAGER
 	  JOIN TB_YOUTUBER USING(MANAGER_CODE)
@@ -57,6 +65,65 @@
 	 	  YOUTUBER_NAME = #{youtuberValue}
 	 	  </if> 
 	  </trim>
+  </select> -->
+  
+  <select id="modifyYoutuber" parameterType="com.greedy.models.dto.YoutuberDTO">
+  	UPDATE TB_YOUTUBER
+  	   SET YOUTUBER_NAME = #{youtuberName}
+  	      ,YOUTUBER_NUM = #{youtuberNum}
+  	      ,GRADE_CDOE = #{gradeCode}
+  	 WHERE YOUTUBER_CODE = #{youtuberCode}
   </select>
   
+  <insert id="registYoutuber" parameterType="com.greedy.models.dto.YoutuberDTO">
+  	INSERT 
+  	  TB_YOUTUBER
+  	  (
+	  	 YOUTUBER_CODE
+	  	,YOUTUBER_NAME
+	  	,YOUTUBER_NUM
+	  	,YOUTUBER_URL
+	  	,GRADE_CODE
+	  	,MANAGER_CODE
+	  	,DEAL_YN
+  	  )
+  VALUES 
+    (
+      YTB_SEQ.NEXTVAL
+     ,#{youtuberName}
+     ,#{youtuberNum}
+     ,#{youtuberUrl}
+     ,#{gradeCode}
+     ,#{managerCode}
+     ,'Y'
+    )
+  </insert>
+  
+  
+  
+  	<!-- <resultMap type="com.greedy.common.MenuAndCategoryDTO" id="menuAndCategoryResultMap">
+		<id property="code" column="MENU_CODE"/>
+		<result property="name" column="MENU_NAME"/>
+		<result property="price" column="MENU_PRICE"/>
+		<result property="orderableStatus" column="ORDERABLE_STATUS"/>
+		<association property="category" javaType="com.greedy.common.CategoryDTO">
+			<id property="code" column="CATEGORY_CODE"/>
+			<result property="name" column="CATEGORY_NAME"/>
+			<result property="refCategoryCode" column="REF_CATEGORY_CODE"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectResultMapAssociationTest" resultMap="menuAndCategoryResultMap">
+		SELECT 
+				A.MENU_CODE
+				,A.MENU_NAME
+				,A.MENU_PRICE
+				,B.CATEGORY_CODE
+				,B.CATEGORY_NAME
+				,B.REF_CATEGORY_CODE
+				,A.ORDERABLE_STATUS
+		  FROM TBL_MENU A
+		  JOIN TBL_CATEGORY B ON (A.CATEGORY_CODE = B.CATEGORY_CODE)
+		 WHERE A.ORDERABLE_STATUS = 'Y'
+	</select> -->
 </mapper>
