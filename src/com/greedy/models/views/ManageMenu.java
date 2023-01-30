@@ -94,12 +94,12 @@ public class ManageMenu {
 		String name = sc.nextLine();
 		System.out.print("변경된 전화번호 입력 : ");
 		String num = sc.nextLine();
-		System.out.print("변경된 유튜브 등급코드 입력");
-		System.out.print("  1	브론즈");
-		System.out.print("  2	실버");
-		System.out.print("  3	골드");
-		System.out.print("  4	다이아몬드");
-		System.out.print("  5	루비");
+		System.out.println(" 유튜브 등급 코드 입력");
+		System.out.println("  1	브론즈");
+		System.out.println("  2	실버");
+		System.out.println("  3	골드");
+		System.out.println("  4	다이아몬드");
+		System.out.println("  5	루비");
 		System.out.print(" :  ");
 		String gradeCode = sc.nextLine();
 		//거래 유지여부

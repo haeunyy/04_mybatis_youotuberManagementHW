@@ -7,8 +7,8 @@
 
 <resultMap type="com.greedy.models.dto.YoutuberDTO" id="ResultMap">
 	<id property="youtuberCode" column="YOUTUBER_CODE"/>
-	<result property="youtuberName" column="YOUTUBER_NAME"/>
-	<result property="youtuberNum" column="YOUTUBER_NUM"/>
+	<result property="youtuberName" column="YOUTUBER_USERNAME"/>
+	<result property="youtuberNum" column="YOUTUBER_NUMBER"/>
 	<result property="youtuberUrl" column="YOUTUBER_URL"/>
 	<result property="gradeCode" column="GRADE_CODE"/>
 	<result property="managerCode" column="MANAGER_CODE"/>
@@ -34,54 +34,34 @@
       ORDER BY YOUTUBER_CODE 
   </select>
 
-   <select id="selectByName" parameterType="string" resultMap="ResultMap">
+   <select id="selectByName" parameterType="string" resultMap="ManagerResultMap2">
     SELECT
-    		MANAGER_CODE
-			,MANAGER_NAME
-			,MANAGER_NUMBER
+    		YOUTUBER_CODE
+			,YOUTUBER_USERNAME
+			,YOUTUBER_NUMBER
+			,YOUTUBER_URL
+			,GRADE_CODE
       FROM TB_YOUTUBER
       WHERE DEAL_YN = 'Y'
       AND YOUTUBER_USERNAME = #{ name }
       ORDER BY YOUTUBER_CODE 
  </select>
- 
- <!-- <resultMap type="com.greedy.models.dto.ManagerAndYoutuberDTO" id="ManagerResultMap">
- 	<id property="managerCode" column="MANGER_CODE"/>
-	<result property="managerName" column="MANGER_NAME"/>
-	<result property="managerNum" column="MANGER_NUM"/>
-		<association property="youtuber" javaType="com.greedy.common.YoutuberDTO">
-			<result property="youtuberName" column="YOUTUBER_USERNAME"/>
-		</association>
- </resultMap> -->
-<!--  <select id="selectManagerList" parameterType="hashmap" resultMap="ManagerResultMap">
-	 SELECT MANAGER_CODE, MANAGER_NAME, MANAGER_NUMBER
-      FROM TB_MANAGER
-	  JOIN TB_YOUTUBER USING(MANAGER_CODE)
-      <trim prefix="WHERE" prefixOverrides="AND | OR">
-		  <if test="MANAGER_NAME != null">
-		  MENU_NAME LIKE '%' || #{managerValue} || '%'
-	 	  </if>
-	 	  <if test="youtuberValue != null">
-	 	  YOUTUBER_NAME = #{youtuberValue}
-	 	  </if> 
-	  </trim>
-  </select> -->
-  
+
   <select id="modifyYoutuber" parameterType="com.greedy.models.dto.YoutuberDTO">
   	UPDATE TB_YOUTUBER
-  	   SET YOUTUBER_NAME = #{youtuberName}
-  	      ,YOUTUBER_NUM = #{youtuberNum}
+  	   SET YOUTUBER_USERNAME = #{youtuberName}
+  	      ,YOUTUBER_NUMBER = #{youtuberNum}
   	      ,GRADE_CDOE = #{gradeCode}
   	 WHERE YOUTUBER_CODE = #{youtuberCode}
   </select>
   
   <insert id="registYoutuber" parameterType="com.greedy.models.dto.YoutuberDTO">
-  	INSERT 
+  	INSERT INTO
   	  TB_YOUTUBER
   	  (
 	  	 YOUTUBER_CODE
-	  	,YOUTUBER_NAME
-	  	,YOUTUBER_NUM
+	  	,YOUTUBER_USERNAME
+	  	,YOUTUBER_NUMBER
 	  	,YOUTUBER_URL
 	  	,GRADE_CODE
 	  	,MANAGER_CODE
