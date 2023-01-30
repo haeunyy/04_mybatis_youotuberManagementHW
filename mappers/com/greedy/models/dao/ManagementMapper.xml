@@ -28,8 +28,8 @@
   	  FROM TB_MANAGER 
   </select>
 	
-  <select id="selectAllList" resultMap="ResultMap">
-    SELECT
+   <select id="selectByGradeCode" resultMap="ResultMap">
+		SELECT
     		YOUTUBER_CODE
 			,YOUTUBER_USERNAME
 			,YOUTUBER_NUMBER
@@ -37,8 +37,25 @@
 			,GRADE_CODE
 			,MANAGER_CODE
       FROM TB_YOUTUBER
-      WHERE DEAL_YN = 'Y'
-      ORDER BY YOUTUBER_CODE 
+      WHERE DEAL_YN = '1'
+      <choose>
+      <when test="value=='1'">
+      AND GRADE_CODE = '1'
+      </when>
+      <when test="value=='2'">
+      AND GRADE_CODE = '2'
+      </when>
+      <when test="value=='3'">
+      AND GRADE_CODE = '3'
+      </when>
+      <when test="value=='4'">
+      AND GRADE_CODE = '4'
+      </when>
+      <when test="value=='5'">
+      AND GRADE_CODE = '5'
+      </when>
+      </choose>
+      ORDER BY YOUTUBER_CODE   
   </select>
 
    <select id="selectByName" parameterType="string" resultMap="ResultMap">
@@ -52,6 +69,9 @@
       WHERE DEAL_YN = 'Y'
       AND YOUTUBER_USERNAME = #{ name }
       ORDER BY YOUTUBER_CODE 
+ </select>
+ 
+ <select id="selectByGradeCode" parameterType="SearchCriteria">
  </select>
 
   <select id="modifyYoutuber" parameterType="com.greedy.models.dto.YoutuberDTO">

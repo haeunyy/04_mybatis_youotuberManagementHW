@@ -8,13 +8,14 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.greedy.models.dao.ManagementMapper;
 import com.greedy.models.dto.ManagerDTO;
+import com.greedy.models.dto.SearchCriteria;
 import com.greedy.models.dto.YoutuberDTO;
 
 public class ManagementService {
 
 	private ManagementMapper mapper;
 	
-	public List<YoutuberDTO> selectAllList() { // 전체 조회 기능
+	public List<YoutuberDTO> selectAllList() { 
 		SqlSession sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(ManagementMapper.class);
 		
@@ -40,30 +41,6 @@ public class ManagementService {
 		sqlSession.close();
 		return manager;
 	}
-	/*
-	 * public void selectManagerList(Map<String, Object> manager) { SqlSession
-	 * sqlSession = getSqlSession(); mapper =
-	 * sqlSession.getMapper(ManagementMapper.class);
-	 * 
-	 * List<ManagerDTO> managerList = mapper.selectManagerList(manager);
-	 * 
-	 * if (managerList != null && !managerList.isEmpty()) { for (ManagerDTO menu :
-	 * managerList) { PrintResultView.managerList(managerList); } } else {
-	 * System.out.println("검색 결과가 존재하지 않습니다."); }
-	 * 
-	 * sqlSession.close();
-	 * 
-	 * }
-	 */
-
-	/*
-	 * public List<ManagerAndYoutuberDTO> selectManagerList() { SqlSession
-	 * sqlSession = getSqlSession(); mapper =
-	 * sqlSession.getMapper(ManagementMapper.class);
-	 * 
-	 * List<ManagerAndYoutuberDTO> manager = mapper.selectManagerList();
-	 * sqlSession.close(); return manager; }
-	 */
 
 	public boolean modifyYoutuber(YoutuberDTO ytb) {
 		SqlSession sqlSession = getSqlSession();
@@ -114,8 +91,43 @@ public class ManagementService {
 
 		return result > 0 ? true : false ;
 	}
-	
 
+	public List<YoutuberDTO> selectByGradeCode(SearchCriteria criteria) {
+		
+		SqlSession sqlSession = getSqlSession();
+		mapper = sqlSession.getMapper(ManagementMapper.class);
+		
+		List<YoutuberDTO> youtuber= mapper.selectByGradeCode(criteria);
+		sqlSession.close();
+		return youtuber;
+	}
+	
+	
+	
+	/*
+	 * public void selectManagerList(Map<String, Object> manager) { SqlSession
+	 * sqlSession = getSqlSession(); mapper =
+	 * sqlSession.getMapper(ManagementMapper.class);
+	 * 
+	 * List<ManagerDTO> managerList = mapper.selectManagerList(manager);
+	 * 
+	 * if (managerList != null && !managerList.isEmpty()) { for (ManagerDTO menu :
+	 * managerList) { PrintResultView.managerList(managerList); } } else {
+	 * System.out.println("검색 결과가 존재하지 않습니다."); }
+	 * 
+	 * sqlSession.close();
+	 * 
+	 * }
+	 */
+
+	/*
+	 * public List<ManagerAndYoutuberDTO> selectManagerList() { SqlSession
+	 * sqlSession = getSqlSession(); mapper =
+	 * sqlSession.getMapper(ManagementMapper.class);
+	 * 
+	 * List<ManagerAndYoutuberDTO> manager = mapper.selectManagerList();
+	 * sqlSession.close(); return manager; }
+	 */
 
 
 }

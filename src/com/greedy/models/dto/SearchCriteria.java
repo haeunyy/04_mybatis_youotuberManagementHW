@@ -1,4 +1,4 @@
-package com.greedy.common;
+package com.greedy.models.dto;
 
 public class SearchCriteria {
 	

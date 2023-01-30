@@ -51,7 +51,13 @@ public class PrintResultView {
 			System.out.println(list);
 	  }
 	}
+
+	public void printSuccessMessage(List<YoutuberDTO> criteriaList) {
+		for(YoutuberDTO list : criteriaList) {
+			System.out.println(list);
+	  }
 	}
-
-
+		
+	}
+	
 

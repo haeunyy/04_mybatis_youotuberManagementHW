@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.greedy.models.dto.ManagerDTO;
+import com.greedy.models.dto.SearchCriteria;
 import com.greedy.models.dto.YoutuberDTO;
 import com.greedy.models.service.ManagementService;
 import com.greedy.models.views.PrintResultView;
@@ -103,10 +104,16 @@ public class MenuController {
 			resultView.printErrorMessage("delete");
 		}	
 	}
-	
-	
-	
-	
+
+	public void selectByGradeCode(SearchCriteria criteria) {
+		
+		List<YoutuberDTO> criteriaList = managementService.selectByGradeCode(criteria);
+		
+		if( criteriaList != null && !criteriaList.isEmpty()) {
+			resultView.printSuccessMessage(criteriaList);
+		} else {
+			resultView.printErrorMessage("gradecodeList");
+	}
 	
 	/*
 	 * public void selectManagerList(Map<String, Object> criteria) {
@@ -118,18 +125,7 @@ public class MenuController {
 	 * resultView.printErrorMessage("selectManager"); } }
 	 */
 
-
-
-
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}
 }
+
+
