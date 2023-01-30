@@ -30,11 +30,10 @@ public class PrintResultView {
 
 	
 	  public void printYoutuberList(YoutuberDTO ytb) { //유튜버의 이름으로 해당 유튜버 조회
-	  System.out.println(ytb); }
+	  System.out.println(ytb); 
+	  }
 	  
-	  public void printManagerList (ManagerDTO manager) {
-		  System.out.println(manager); 
-		  }
+
 
 	public void printSuccessMessage(String successCode) {
 
@@ -47,6 +46,12 @@ public class PrintResultView {
 		System.out.println(successMessage);
 	}
 
+	public void printManagerList(List<ManagerDTO> manager) {
+		for(ManagerDTO list : manager) {
+			System.out.println(list);
+	  }
+	}
+	}
 
 
-}
+

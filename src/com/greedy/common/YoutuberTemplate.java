@@ -13,8 +13,8 @@ public class YoutuberTemplate {
 
 	private static String DRIVER = "oracle.jdbc.driver.OracleDriver"; //클래스 명 이다. 
 	private static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	private static String USER = "C##HWYOUTUBER";
-	private static String PASSWORD = "HWYOUTUBER";
+	private static String USER = "C##MYHOMEWORK";
+	private static String PASSWORD = "MYHOMEWORK";
 
 	private static SqlSessionFactory sqlSessionFactory; //
 

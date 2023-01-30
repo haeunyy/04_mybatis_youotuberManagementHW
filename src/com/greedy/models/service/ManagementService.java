@@ -3,14 +3,12 @@ package com.greedy.models.service;
 import static com.greedy.common.YoutuberTemplate.getSqlSession;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import com.greedy.models.dao.ManagementMapper;
 import com.greedy.models.dto.ManagerDTO;
 import com.greedy.models.dto.YoutuberDTO;
-import com.greedy.models.views.PrintResultView;
 
 public class ManagementService {
 
@@ -29,11 +27,19 @@ public class ManagementService {
 		SqlSession sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(ManagementMapper.class);
 		
-		YoutuberDTO  ytbList = mapper.selectByName(name);
+		YoutuberDTO  ytb = mapper.selectByName(name);
 		sqlSession.close();
-		return ytbList;
+		return ytb;
 	}
 
+	public List<ManagerDTO> selectManagerList(){
+		SqlSession sqlSession = getSqlSession();
+		mapper = sqlSession.getMapper(ManagementMapper.class);
+		
+		List<ManagerDTO> manager= mapper.selectManagerList();
+		sqlSession.close();
+		return manager;
+	}
 	/*
 	 * public void selectManagerList(Map<String, Object> manager) { SqlSession
 	 * sqlSession = getSqlSession(); mapper =
@@ -50,14 +56,14 @@ public class ManagementService {
 	 * }
 	 */
 
-	public ManagerDTO selectManagerList(String parameter) {
-		SqlSession sqlSession = getSqlSession();
-		mapper = sqlSession.getMapper(ManagementMapper.class);
-		
-		ManagerDTO manager = (ManagerDTO) mapper.selectManagerList(parameter);
-		sqlSession.close();
-		return manager;
-	}
+	/*
+	 * public List<ManagerAndYoutuberDTO> selectManagerList() { SqlSession
+	 * sqlSession = getSqlSession(); mapper =
+	 * sqlSession.getMapper(ManagementMapper.class);
+	 * 
+	 * List<ManagerAndYoutuberDTO> manager = mapper.selectManagerList();
+	 * sqlSession.close(); return manager; }
+	 */
 
 	public boolean modifyYoutuber(YoutuberDTO ytb) {
 		SqlSession sqlSession = getSqlSession();
@@ -91,6 +97,24 @@ public class ManagementService {
 
 		return result > 0 ? true : false ;
 	}
+
+	public boolean deleteYoutuber(int code) {
+		
+		SqlSession sqlSession = getSqlSession();
+		mapper = sqlSession.getMapper(ManagementMapper.class);
+		
+		int result = mapper.deleteYoutuber(code);
+		
+		if(result > 0) {
+			sqlSession.commit();
+		} else {
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+
+		return result > 0 ? true : false ;
+	}
+	
 
 
 

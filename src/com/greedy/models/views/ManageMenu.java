@@ -15,7 +15,7 @@ public class ManageMenu {
 		Scanner sc = new Scanner(System.in);
 		MenuController menuC = new MenuController();
 		ManagementService manageS = new ManagementService();
-
+ 
 		do {
 			System.out.println("================  개발새발 매니지먼트 접속 ==============");
 			System.out.println(" 1. 개발새발 소속 유튜버 전체목록 조회");
@@ -26,11 +26,11 @@ public class ManageMenu {
 			int no = sc.nextInt();
 
 			switch (no) {
-			case 1: menuC.selectAllList();
-			case 2: menuC.selectByName(inputName());
-			case 3: menuC.selectManagerList(inputSearchCriteria());
-			case 4: manageMentSubMenu();
-			default : System.out.println("메뉴 번호를 다시 확인해주세요. ");
+			case 1: menuC.selectAllList(); break;
+			case 2: menuC.selectByName(inputName()); break;
+			case 3:	menuC.selectManagerList(); break;
+			case 4: manageMentSubMenu(); break;
+			default : System.out.println("메뉴 번호를 다시 확인해주세요. "); break;
 			}
 
 		} while (true);
@@ -51,17 +51,25 @@ public class ManageMenu {
 			int no = sc.nextInt();
 
 			switch (no) {
-			case 1: menuC.registYoutuber(inputYoutuber());
-			case 2: menuC.modifyYoutuber(inputYoutubeCode());
-			case 3: menuC.selectManagerList(inputSearchCriteria());
-			case 4: manageMentSubMenu();
-			default : System.out.println("메뉴 번호를 다시 확인해주세요. ");
+			case 1: menuC.registYoutuber(inputYoutuber()); break;
+			case 2: menuC.modifyYoutuber(inputYoutubeCode());break;
+			case 3: menuC.deleteYoutuber(inputYoutuberCodeDelect()); break;
+			default : System.out.println("메뉴 번호를 다시 확인해주세요. "); 
 			}
 
 		} while (true);
 
 	}
 		
+	private Map<String,String> inputYoutuberCodeDelect() {
+		Scanner sc = new Scanner(System.in);
+		Map<String,String> parameter = new HashMap<>();
+		System.out.print("삭제할 유튜버 코드 입력 : ");
+		parameter.put("code", sc.nextLine());
+		return parameter;
+	}
+
+
 	private Map<String, String> inputYoutuber() {
 		Scanner sc = new Scanner(System.in);
 		Map<String,String> parameter = new HashMap<>();
@@ -115,29 +123,35 @@ public class ManageMenu {
 		return parameter;
 	}
 
-	private static Map<String, String> inputSearchCriteria() {
-
+	private Map<String, String> inputName() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println(" 유튜버 계정이름으로 조회를 원하시면 << youtuber >> ");
-		System.out.println("    매니저 이름으로 조회를 원하시면 <<  manager >> ");
-		System.out.print("                   입력해주세요 :    ");
-		String condition = sc.nextLine();
-
-		Map<String, String> criteria = new HashMap<>();
+		System.out.print("유튜버 계정 이름을 입력해주세요 : ");
 		
-		if ("youtuber".equals(condition)) {
-			
-			System.out.print(" 유튜버 계정 이름을 입력 해주세요 : ");
-			String youtuberValue = sc.nextLine();
-			criteria.put("youtuberValue", youtuberValue);
-			
-		} else if ("manager".equals(condition)) {
-			
-			System.out.print(" 매니저 이름 입력을 입력해주세요 : ");
-			String managerValue = sc.nextLine();
-			criteria.put("managerValue", managerValue);
-		} 
-		return criteria;
+		Map<String,String> parameter = new HashMap<>();
+		parameter.put("name", sc.nextLine());
+		return parameter;
+	}
+	/*
+	 * private static Map<String, String> inputSearchCriteria() {
+	 * 
+	 * Scanner sc = new Scanner(System.in);
+	 * System.out.println(" 유튜버 계정이름으로 조회를 원하시면 << youtuber >> ");
+	 * System.out.println("    매니저 이름으로 조회를 원하시면 <<  manager >> ");
+	 * System.out.print("                   입력해주세요 :    "); String condition =
+	 * sc.nextLine();
+	 * 
+	 * Map<String, String> criteria = new HashMap<>();
+	 * 
+	 * if ("youtuber".equals(condition)) {
+	 * 
+	 * System.out.print(" 유튜버 계정 이름을 입력 해주세요 : "); String youtuberValue =
+	 * sc.nextLine(); criteria.put("youtuberValue", youtuberValue);
+	 * 
+	 * } else if ("manager".equals(condition)) {
+	 * 
+	 * System.out.print(" 매니저 이름 입력을 입력해주세요 : "); String managerValue =
+	 * sc.nextLine(); criteria.put("managerValue", managerValue); } return criteria;
+	 
 	}
 	/*
 	 * private static Map<String, Object> inputSearchCriteria() {
@@ -162,6 +176,7 @@ public class ManageMenu {
 	 * }
 	 */
 	
+	
 	/*
 	 * private static Map<String, String> inputSearchCriteria() {
 	 * 
@@ -173,14 +188,7 @@ public class ManageMenu {
 	 * Map<String, String> managerSearch = new HashMap<>();
 	 * managerSearch.put("criteria", value); return managerSearch; }
 	 */
+	 
 
-	private Map<String, String> inputName() {
-		Scanner sc = new Scanner(System.in);
-		System.out.print("유튜버 계정 이름을 입력해주세요 : ");
-		
-		Map<String,String> parameter = new HashMap<>();
-		parameter.put("name", sc.nextLine());
-		return parameter;
-	}
 
 }

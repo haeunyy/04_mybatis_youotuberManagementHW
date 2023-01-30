@@ -40,20 +40,28 @@ public class MenuController {
 		}
 	}
 
-	public void selectManagerList (Map<String, String> parameter) {	
+	public void selectManagerList () {	
 		
-		if(parameter.containsKey("youtuberValue")) {
-			ManagerDTO manager = managementService.selectManagerList(parameter.get("youtuberValue"));
-			if(manager != null) resultView.printManagerList(manager);
-			
-		} else if(parameter.containsKey("managerValue")){
-			ManagerDTO manager = managementService.selectManagerList(parameter.get("managerValue"));
-			if(manager != null) resultView.printManagerList(manager);
-			
+		List<ManagerDTO> manager = managementService.selectManagerList();
+		if( manager != null ) {
+			resultView.printManagerList(manager);
 		} else {
 			resultView.printErrorMessage("selectManager");
 		}
 	}
+	/*
+	 * public void selectManagerList (Map<String, String> parameter) {
+	 * 
+	 * if(parameter.containsKey("youtuberValue")) { ManagerAndYoutuberDTO manager =
+	 * managementService.selectManagerList(parameter.get("youtuberValue"));
+	 * if(manager != null) resultView.printManagerList(manager);
+	 * 
+	 * } else if(parameter.containsKey("managerValue")){ ManagerAndYoutuberDTO
+	 * manager = managementService.selectManagerList(parameter.get("managerValue"));
+	 * if(manager != null) resultView.printManagerList(manager);
+	 * 
+	 * } else { resultView.printErrorMessage("selectManager"); } }
+	 */
 
 	public void registYoutuber(Map<String, String> parameter) {
 		
@@ -80,11 +88,20 @@ public class MenuController {
 		ytb.setGradeCode(Integer.parseInt(parameter.get("gradeCode")));
 		ytb.setYoutuberNum(parameter.get("num"));
 		
-		if(managementService.registYoutuber(ytb)) {
+		if(managementService.modifyYoutuber(ytb)) {
 			resultView.printSuccessMessage("update");
 		} else {
 			resultView.printErrorMessage("update");
 		}
+	}
+
+	public void deleteYoutuber(Map<String, String> parameter) {
+
+		if(managementService.deleteYoutuber(Integer.parseInt(parameter.get("code")))) {
+			resultView.printSuccessMessage("delete");
+		} else {
+			resultView.printErrorMessage("delete");
+		}	
 	}
 	
 	
