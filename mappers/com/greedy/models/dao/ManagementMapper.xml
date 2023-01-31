@@ -28,7 +28,7 @@
   	  FROM TB_MANAGER 
   </select>
 	
-   <select id="selectByGradeCode" resultMap="ResultMap">
+   <!-- <select id="selectByGradeCode" resultMap="ResultMap">
 		SELECT
     		YOUTUBER_CODE
 			,YOUTUBER_USERNAME
@@ -56,7 +56,7 @@
       </when>
       </choose>
       ORDER BY YOUTUBER_CODE   
-  </select>
+  </select> -->
 
    <select id="selectByName" parameterType="string" resultMap="ResultMap">
     SELECT

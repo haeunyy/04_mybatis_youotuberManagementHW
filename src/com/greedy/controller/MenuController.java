@@ -115,15 +115,6 @@ public class MenuController {
 			resultView.printErrorMessage("gradecodeList");
 	}
 	
-	/*
-	 * public void selectManagerList(Map<String, Object> criteria) {
-	 * 
-	 * List<ManagerDTO> managerList=
-	 * managementService.selectManagerList("youtuberValue");
-	 * 
-	 * if( managerList != null) { resultView.printManagerList(managerList); } else {
-	 * resultView.printErrorMessage("selectManager"); } }
-	 */
 
 	}
 }
