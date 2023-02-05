@@ -15,7 +15,7 @@
 	<result property="dealYN" column="DEAL_YN"/>
 </resultMap>
 
-<resultMap type="com.greedy.models.dto.ManagerDTO" id="ManagerResultMap2">
+<!-- <resultMap type="com.greedy.models.dto.ManagerDTO" id="ManagerResultMap2">
 	<id property="managerCode" column="MANAGER_CODE"/>
 	<result property="managerName" column="MANAGER_NAME"/>
 	<result property="managerNum" column="MANGER_NUMBER"/>
@@ -26,9 +26,9 @@
   		   ,MANAGER_NAME
   		   ,MANAGER_NUMBER
   	  FROM TB_MANAGER 
-  </select>
+  </select> -->
 	
-   <!-- <select id="selectByGradeCode" resultMap="ResultMap">
+   <select id="selectByGradeCode" parameterType="com.greedy.models.dto.SearchCriteria" resultMap="ResultMap">
 		SELECT
     		YOUTUBER_CODE
 			,YOUTUBER_USERNAME
@@ -37,7 +37,7 @@
 			,GRADE_CODE
 			,MANAGER_CODE
       FROM TB_YOUTUBER
-      WHERE DEAL_YN = '1'
+      WHERE DEAL_YN = 'Y'
       <choose>
       <when test="value=='1'">
       AND GRADE_CODE = '1'
@@ -56,7 +56,7 @@
       </when>
       </choose>
       ORDER BY YOUTUBER_CODE   
-  </select> -->
+  </select>
 
    <select id="selectByName" parameterType="string" resultMap="ResultMap">
     SELECT

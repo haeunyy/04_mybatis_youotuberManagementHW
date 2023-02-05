@@ -20,7 +20,8 @@ public class ManageMenu {
 			System.out.println("================  개발새발 매니지먼트 접속 ==============");
 			System.out.println(" 1. 개발새발 소속 유튜버 전체목록 조회");
 			System.out.println(" 2. 유튜버 이름으로 조회 ");
-			System.out.println(" 3. 매니저 조회 ");
+			System.out.println(" 3. 유튜브 등급별 유튜버 조회 ");
+//			System.out.println(" 3. 매니저 조회 ");
 			System.out.println(" 4. 유튜버 관리 프로그램으로 이동 ");
 			System.out.print(" -- 원하시는 메뉴 목록을 선택해주세요 : ");
 			int no = sc.nextInt();
@@ -28,7 +29,8 @@ public class ManageMenu {
 			switch (no) {
 			case 1: menuC.selectAllList(); break;
 			case 2: menuC.selectByName(inputName()); break;
-			case 3:	menuC.selectManagerList(); break;
+			case 3: menuC.selectByGradeCode(inputCode());break;
+//			case 3:	menuC.selectManagerList(); break;
 			case 4: manageMentSubMenu(); break;
 			default : System.out.println("메뉴 번호를 다시 확인해주세요. "); break;
 			}
@@ -36,28 +38,26 @@ public class ManageMenu {
 		} while (true);
 	}
 
-//	System.out.println(" 3. 유튜브 등급별 유튜버 조회 ");
-//	case 3: menuC.selectByGradeCode(inputCode());break;
-//	private SearchCriteria inputCode() {
-//		
-//		do {
-//			Scanner sc = new Scanner(System.in);
-//			System.out.print(" 조회를 원하시는 유튜브 등급을 입력해주세요 : ");
-//			System.out.println("  1	브론즈");
-//			System.out.println("  2	실버");
-//			System.out.println("  3	골드");
-//			System.out.println("  4	다이아몬드");
-//			System.out.println("  5	루비");
-//			System.out.print(" :  ");
-//			String value = sc.nextLine();
-//			
-//			if (value.equals("1")||value.equals("2")||value.equals("3")||value.equals("4")||value.equals("5")) {
-//				return new SearchCriteria("category",value);
-//			} else {
-//				System.out.println(" 등급 코드를 다시 확인해주세요. ");
-//			}
-//		} while (true);
-//	}
+	private SearchCriteria inputCode() {
+		
+		do {
+			Scanner sc = new Scanner(System.in);
+			System.out.print(" 조회를 원하는 유튜브 등급을 입력해주세요 : ");
+			System.out.println("  1	브론즈");
+			System.out.println("  2	실버");
+			System.out.println("  3	골드");
+			System.out.println("  4	다이아몬드");
+			System.out.println("  5	루비");
+			System.out.print(" :  ");
+			String value = sc.nextLine();
+			
+			if (value.equals("1")||value.equals("2")||value.equals("3")||value.equals("4")||value.equals("5")) {
+				return new SearchCriteria("category",value);
+			} else {
+				System.out.println(" 등급 코드를 다시 확인해주세요. ");
+			}
+		} while (true);
+	}
 
 
 	private void manageMentSubMenu() {

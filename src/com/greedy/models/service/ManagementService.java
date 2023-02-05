@@ -97,9 +97,10 @@ public class ManagementService {
 		SqlSession sqlSession = getSqlSession();
 		mapper = sqlSession.getMapper(ManagementMapper.class);
 		
-		List<YoutuberDTO> youtuber= mapper.selectByGradeCode(criteria);
+		List<YoutuberDTO> youtuberList= mapper.selectByGradeCode(criteria);
 		sqlSession.close();
-		return youtuber;
+		System.out.println("sqlSession 종료");
+		return youtuberList;
 	}
 	
 	
